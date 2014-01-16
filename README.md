@@ -1,5 +1,7 @@
 # Tree-Router for Node.js
 
+[![Build Status](https://secure.travis-ci.org/oconnore/tree-router.png?branch=master)](http://travis-ci.org/oconnore/tree-router)
+
 ## What is this?
 
 Tree-Router is a library that handles routing, error handling, and authentication "gates" for your Node.js web application.
