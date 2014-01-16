@@ -1,0 +1,32 @@
+{
+  "name": "tree-router",
+  "description": "A HTTP router/error/authorization handler for Node.js",
+  "homepage": "http://github.com/oconnore/tree-router.git",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=0.10.22"
+  },
+  "maintainers": [{
+    "name": "Eric O'Connor",
+    "email": "eric@bocoup.com",
+    "web": "http://bocoup.com"
+  }],
+  "scripts": {
+    "test": "node --harmony test/setup.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/oconnore/tree-router.git"
+  },
+  "readme": "./README.md",
+  "licenses": [{
+    "type": "MIT",
+    "url": "./LICENSE"
+  }],
+  "dependencies": {
+    "lodash": ">=2.4.1",
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*"
+  }
+}
