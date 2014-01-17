@@ -2,10 +2,11 @@
   "name": "tree-router",
   "description": "A HTTP router/error/authorization handler for Node.js",
   "homepage": "http://github.com/oconnore/tree-router.git",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "engines": {
     "node": ">=0.10.22"
   },
+  "main": "./src/index.js",
   "maintainers": [{
     "name": "Eric O'Connor",
     "email": "eric@bocoup.com",
