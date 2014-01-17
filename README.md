@@ -84,7 +84,6 @@ User code can call ```start```/```stop``` to create an HTTP server, or can call 
 - **unregister** - Unregisters a method handler from the tree.
    - *method* ```String``` - the HTTP method (or Server.AnyMethod) to respond to.
    - *path* ```Array``` - an array of names, forming a path, to be bound in the tree.
-   - *function* ```Function``` - the function responding to HTTPRequest and HTTPResponse.
 
 - **addGate** - Adds an authentication gate. If the gate throws an error, the request cannot continue to traverse the tree.
    - *method* ```String``` - the HTTP method (or Server.AnyMethod) to respond to.
@@ -94,7 +93,6 @@ User code can call ```start```/```stop``` to create an HTTP server, or can call 
 - **removeGate** - Remove a gate from the tree.
    - *method* ```String``` - the HTTP method (or Server.AnyMethod) to respond to.
    - *path* ```Array``` - an array of names, forming a path, to be bound in the tree.
-   - *function* ```Function``` - the function responding to HTTPRequest and HTTPResponse.
 
 - **addError** - Adds an error handler to the tree. Any error thrown past this handler in the traversal will bubble back up towards the root, calling error handlers as it goes.
    - *method* ```String``` - the HTTP method (or Server.AnyMethod) to respond to.
@@ -104,7 +102,6 @@ User code can call ```start```/```stop``` to create an HTTP server, or can call 
 - **removeError** - removes an error handler from the tree.
    - *method* ```String``` - the HTTP method (or Server.AnyMethod) to respond to.
    - *path* ```Array``` - an array of names, forming a path, to be bound in the tree.
-   - *function* ```Function``` - the function responding to HTTPRequest and HTTPResponse.
 
 ### Response Object
 
