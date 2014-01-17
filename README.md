@@ -6,6 +6,33 @@
 
 Tree-Router is a library that handles routing, error handling, and authentication "gates" for your Node.js web application.
 
+The "tree" part is that instead of defining your routes using regular expressions and string matching, tree-router defines a formal tree (a series of hierarchical nodes with children), and then handles routing based on simple rules defined on the tree. This makes reasoning about application routing much easier.
+
+For example, the routes:
+
+```
+    [orange, banana, apple]
+    [orange, kiwi, strawberry]
+    [orange, kiwi, strawberry, mango]
+    [blackberry, raspberry]
+```
+
+defines a tree that looks like
+
+```
+              __ROOT__
+             /        \
+          orange    blackberry
+          /    \         \
+       kiwi   banana    raspberry
+         |       \
+     strawberry  apple
+         |
+       mango
+```
+
+Any partial matches are routed to the closest match, which can either handle the ```request.unused``` path elements, or throw an error. Errors are bubbled up the tree to the nearest error handler in the hierarchy. Authentication and authorization "gates" are triggered while traversing down, allowing application authors to reason about exactly what URL paths are allowed. 
+
 It assumes that node is being run with --harmony, to get Map and WeakMap support.
 
 ## Usage
