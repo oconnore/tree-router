@@ -106,4 +106,11 @@ User code can call ```start```/```stop``` to create an HTTP server, or can call 
    - *path* ```Array``` - an array of names, forming a path, to be bound in the tree.
    - *function* ```Function``` - the function responding to HTTPRequest and HTTPResponse.
 
+### Response Object
+
+The default Node.js response object is extended to include several new methods.
+
+- **bubble** - delegate error handling to the next defined error handler. Should only be called within another error handler.
+- **send** - send a string the the client. If the object is composite, ```JSON.stringify()``` is attempted first.
+
 The end.
