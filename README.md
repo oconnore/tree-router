@@ -12,7 +12,7 @@ It assumes that node is being run with --harmony, to get Map and WeakMap support
 
 ### Example
 ```javascript
-    var Server = require('treerouter').Server;
+    var Server = require('tree-router').Server;
 
     var server = new Server({
       hostname: '127.0.0.1',
