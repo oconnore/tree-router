@@ -19,7 +19,7 @@
     "type": "git",
     "url": "http://github.com/oconnore/tree-router.git"
   },
-  "readme": "./README.md",
+  "readme": "README.md",
   "licenses": [{
     "type": "MIT",
     "url": "./LICENSE"
