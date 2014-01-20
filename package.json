@@ -19,13 +19,15 @@
     "type": "git",
     "url": "http://github.com/oconnore/tree-router.git"
   },
-  "readme": "./README.md",
+  "readme": "README.md",
   "licenses": [{
     "type": "MIT",
     "url": "./LICENSE"
   }],
   "dependencies": {
-    "lodash": ">=2.4.1",
+    "lodash": ">=2.4.1"
+  },
+  "devDependencies": {
     "mocha": "*",
     "chai": "*",
     "sinon": "*"
