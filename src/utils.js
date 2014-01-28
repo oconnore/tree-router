@@ -2,10 +2,6 @@
 
 var _ = require('lodash');
 
-var col = require('./collections');
-var eMap = col.Map;
-var eSet = col.Set;
-
 exports.extend = function(initial, args) {
   // Extend an initial object with another object. This is useful for
   // merging default options with a supplied options object.
@@ -73,36 +69,3 @@ exports.repeatString = function rep(str, times) {
 exports.truthy = function() {
   return _.filter(arguments);
 };
-
-exports.async = {
-  generator: function(callback) {
-    var done = false;
-    var s = new eSet();
-    var release = function(err) {
-      if (!done) {
-        try {
-          if (typeof callback === 'function') {
-            callback(err);
-          }
-        } catch (e) {}
-        done = true;
-      }
-    };
-    var makeHook = function makeHook() {
-      var value = {};
-      s.add(value);
-      return function hook(err) {
-        if (err) {
-          release(err);
-          return;
-        }
-        s.delete(value);
-        if (s.size === 0) {
-          release();
-        }
-      };
-    };
-    return makeHook;
-  }
-};
-

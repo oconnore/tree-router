@@ -1,6 +1,5 @@
 'use strict';
 
-var realTimers = require('./setup.js').realTimers;
 var chai = require('chai');
 var assert = chai.assert;
 var sinon = require('sinon');

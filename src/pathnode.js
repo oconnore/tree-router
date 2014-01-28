@@ -1,6 +1,6 @@
 'use strict';
 
-var col = require('./collections');
+var col = require('harmony-enumerables');
 var eMap = col.Map;
 var eSet = col.Set;
 
