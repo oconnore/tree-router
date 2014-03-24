@@ -6,7 +6,7 @@ var _ = require('lodash');
 var utils = require('./utils');
 var EventEmitter = require('events').EventEmitter;
 
-var PathNode = require('./pathnode').PathNode;
+var PathNode = require('./pathnode');
 
 var _r = require('./response');
 var Bubble = _r.Bubble;

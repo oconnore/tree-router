@@ -4,7 +4,7 @@ var chai = require('chai');
 var assert = chai.assert;
 var sinon = require('sinon');
 
-var PathNode = require('../src/pathnode').PathNode;
+var PathNode = require('../src/pathnode');
 
 suite('PathNode Tests', function() {
 

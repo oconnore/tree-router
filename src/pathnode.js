@@ -255,4 +255,4 @@ PathNode.prototype = {
   }
 };
 
-exports.PathNode = PathNode;
+module.exports = PathNode;
