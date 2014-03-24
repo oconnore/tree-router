@@ -2,7 +2,7 @@
   "name": "tree-router",
   "description": "A HTTP router/error/authorization handler for Node.js",
   "homepage": "http://github.com/oconnore/tree-router.git",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "engines": {
     "node": ">=0.10.22"
   },

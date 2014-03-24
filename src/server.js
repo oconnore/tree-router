@@ -4,6 +4,7 @@ var http = require('http');
 var url = require('url');
 var _ = require('lodash');
 var utils = require('./utils');
+var EventEmitter = require('events').EventEmitter;
 
 var PathNode = require('./pathnode').PathNode;
 
@@ -36,7 +37,9 @@ function Server(opts) {
     paths: new PathNode(),
     connections: new WeakMap()
   });
+  EventEmitter.call(this);
 }
+Server.prototype = Object.create(EventEmitter.prototype);
 
 Server.states = states;
 
@@ -65,6 +68,7 @@ Server.prototype.start = function(done) {
         p.state = states.listening;
         this.setup();
       }
+      this.emit('started');
       done && done.call(this, err);
     }.bind(this));
   }.bind(this);
@@ -270,9 +274,13 @@ Server.prototype.stop = function(done) {
   if (p.state === states.listening) {
     p.state = states.stopped;
     this.live = null;
-    this.server.close(done && done.bind(this));
+    this.server.close(function() {
+      this.emit('stopped');
+      done && done.call(this)
+    }.bind(this));
   } else {
-    done && done();
+    this.emit('stopped');
+    done && done.call(this);
   }
 };
 
@@ -304,5 +312,5 @@ Server.prototype.removeGate = rmHelper('gates');
 Server.prototype.addError = addHelper('errors');
 Server.prototype.removeError = rmHelper('errors');
 
-exports.Server = Server;
+module.exports = Server;
 

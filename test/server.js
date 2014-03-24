@@ -6,7 +6,7 @@ var sinon = require('sinon');
 var http = require('http');
 var net = require('net');
 
-var Server = require('../src/server').Server;
+var Server = require('../src/server');
 var netHelper = require('./tools/network');
 
 suite('Server Operation', function() {
