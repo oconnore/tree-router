@@ -1,4 +1,4 @@
-var Server = require('../../src/server').Server;
+var Server = require('../../src/server');
 
 var server = new Server({
   hostname: '127.0.0.1',

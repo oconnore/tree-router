@@ -1,6 +1,6 @@
 'use strict';
 
-var Server = require('../../src/server').Server;
+var Server = require('../../src/server');
 
 var s = new Server({
   port: 3000

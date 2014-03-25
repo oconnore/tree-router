@@ -1,6 +1,6 @@
 'use strict';
 
-var Server = require('../../src/server').Server;
+var Server = require('../../src/server');
 var utils = require('../../src/utils');
 var assert = require('assert');
 
