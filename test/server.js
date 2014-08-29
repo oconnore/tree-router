@@ -141,13 +141,94 @@ suite('Server Operation', function() {
   });
 
   suite('Timeouts', function() {
+    test('No hard timeout', function(done) {
+      this.timeout(14000);
+      this.slow(10000);
+      createServer({
+        port: null,
+        timeouts: {
+          soft: 50,
+          hard: 0 
+        }
+      }, function() {
+        var wrote = false, start = Date.now();
+        server.start(function() {
+          var conn = net.connect({port: server.live.port}, function() {
+            setTimeout(function() {
+              conn.write('GET /test HTTP/1.1', function() {
+                setTimeout(function() {
+                  if (!conn.destroyed) {
+                    conn.write('hello world', function() {
+                      wrote = true;
+                      conn.end();
+                    });
+                  }
+                }, 30);
+              });
+            }, 30);
+            conn.on('close', function() {
+              try {
+                assert.ok(wrote, 'socket should allow write');
+                var diff = Date.now() - start;
+                assert.ok(diff > 60, 'setTimeouts didnt work');
+                conn.destroy();
+                done();
+              } catch(err) {
+                done(err);
+              }
+            });
+          });
+        });
+      });
+    });
+    test('Long timeouts', function(done) {
+      this.timeout(14000);
+      this.slow(10000);
+      createServer({
+        port: null,
+        timeouts: {
+          soft: 1000,
+          hard: 1000
+        }
+      }, function() {
+        var wrote = false, start = Date.now();
+        server.start(function() {
+          var conn = net.connect({port: server.live.port}, function() {
+            setTimeout(function() {
+              conn.write('GET /test HTTP/1.1', function() {
+                setTimeout(function() {
+                  if (!conn.destroyed) {
+                    conn.write('hello world', function() {
+                      wrote = true;
+                      conn.end();
+                    });
+                  }
+                }, 100);
+              });
+            }, 100);
+            conn.on('close', function() {
+              try {
+                assert.ok(wrote, 'socket should allow write');
+                conn.destroy();
+                done();
+              } catch(err) {
+                done(err);
+              }
+            });
+          });
+        });
+      });
+    });
+
     test('Soft timeouts', function(done) {
       this.slow(200);
       createServer({
-        port: null
+        port: null,
+        timeouts: {
+          soft: 30,
+          hard: 60
+        }
       }, function() {
-        server.timeouts.soft = 30;
-        server.timeouts.hard = 60;
         var wrote = false, start = Date.now();
         server.start(function() {
           var conn = net.connect({port: server.live.port}, function() {
@@ -178,10 +259,12 @@ suite('Server Operation', function() {
     test('Hard timeouts', function(done) {
       this.slow(200);
       createServer({
-        port: null
+        port: null,
+        timeouts: {
+          soft: 30,
+          hard: 55
+        }
       }, function() {
-        server.timeouts.soft = 30;
-        server.timeouts.hard = 55;
         var count = 0, start = Date.now();
         server.start(function() {
           var conn = net.connect({port: server.live.port}, function() {

@@ -25,11 +25,11 @@ var states = {
 function Server(opts) {
   utils.initialize(this, priv, opts, {
     live: null,
+    logErrors: false,
     timeouts: {
-      soft: 2500,
-      hard: 25000
-    },
-    logErrors: false
+      soft: 30000,
+      hard: 0
+    }
   }, {
     state: states.init,
     hostname: '127.0.0.1',
@@ -88,16 +88,20 @@ Server.prototype.bindTimeouts = function(server) {
   if (this.timeouts.soft > 0 || this.timeouts.hard > 0) {
     // When we get a connection, register timeouts
     server.on('connection', function(socket) {
-      socket.setTimeout(this.timeouts.soft,
-        this.httpTimeout.bind(this, socket));
-      p.connections.set(socket, {
-        start: Date.now(),
-        timeout: setTimeout(this.httpTimeout.bind(this, socket),
-          this.timeouts.hard)
-      });
-      socket.on('close', function() {
-        clearTimeout(p.connections.get(this).timeout);
-      });
+      if (this.timeouts.soft > 0) {
+        socket.setTimeout(this.timeouts.soft,
+          this.httpTimeout.bind(this, socket));
+      }
+      if (this.timeouts.hard > 0) {
+        p.connections.set(socket, {
+          start: Date.now(),
+          timeout: setTimeout(this.httpTimeout.bind(this, socket),
+            this.timeouts.hard)
+        });
+        socket.on('close', function() {
+          clearTimeout(p.connections.get(this).timeout);
+        });
+      }
     }.bind(this));
   }
 };

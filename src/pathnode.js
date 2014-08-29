@@ -55,7 +55,7 @@ PathNode.prototype = {
     // Get a list of child node names.
     // This is mostly used for debugging.
     var ret = [];
-    var iter = this.children.iterator();
+    var iter = this.children.values();
     while (!iter.done()) {
       ret.push(iter.next()[0]);
     }
@@ -168,7 +168,7 @@ PathNode.prototype = {
     var mark = arguments[0] || new eSet();
     var keepself = false;
     var deleteQueue = [];
-    var iter = this.children.iterator();
+    var iter = this.children.entries();
     while (!iter.done) {
       var ch = iter.next();
       var keep = ch[1].gc(mark);
