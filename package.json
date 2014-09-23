@@ -13,7 +13,7 @@
     "web": "http://bocoup.com"
   }],
   "scripts": {
-    "test": "node --harmony gulpfile.js"
+    "test": "node gulpfile.js"
   },
   "repository": {
     "type": "git",

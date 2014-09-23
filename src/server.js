@@ -12,7 +12,8 @@ var _r = require('./response');
 var Bubble = _r.Bubble;
 var Response = _r.Response;
 
-var priv = new WeakMap();
+var col = require('harmony-enumerables');
+var priv = new col.WeakMap();
 
 var states = {
   init: 0,
@@ -35,7 +36,7 @@ function Server(opts) {
     hostname: '127.0.0.1',
     port: 8080,
     paths: new PathNode(),
-    connections: new WeakMap()
+    connections: new col.WeakMap()
   });
   EventEmitter.call(this);
 }
