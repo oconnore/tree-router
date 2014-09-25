@@ -257,6 +257,7 @@ Server.prototype.callback = function(req, res) {
       this.handleError(err, errorStack, req, res);
     }
   } catch (err) {
+    
     // Some part of the routing stack errored, or there is no error handler
     // for the error that was thrown. Log the error, and call the
     // defaultError handler.

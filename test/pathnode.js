@@ -46,6 +46,18 @@ suite('PathNode Tests', function() {
     assert.ok(node);
   });
 
+  test('Walk the tree', function() {
+    var node = createPathNode();
+    var a=0, b=0;
+    node.walkTree(function(pre) {
+      a++;
+    }, function(post) {
+      b++;
+    });
+    assert.ok(a > 0);
+    assert.equal(a, b);
+  });
+
   test('Traverse a PathNode', function() {
     var node = createPathNode();
     var pth = ['common', 'a', 'b', 'c', 'd', 'e'];

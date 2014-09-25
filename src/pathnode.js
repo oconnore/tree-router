@@ -221,7 +221,7 @@ PathNode.prototype = {
       pre.call(this, { name: recur.name, level: recur.level,
         parent: recur.parent, order: 'prefix' });
     }
-    var iter = this.children.iterator();
+    var iter = this.children.entries();
     while (!iter.done) {
       var el = iter.next();
       this.walkTree.call(el[1], pre, post, {

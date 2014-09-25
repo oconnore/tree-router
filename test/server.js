@@ -232,6 +232,7 @@ suite('Server Operation', function() {
         var wrote = false, start = Date.now();
         server.start(function() {
           var conn = net.connect({port: server.live.port}, function() {
+            conn.on('error', function(){});
             setTimeout(function() {
               conn.write('GET /test HTTP/1.1', function() {
                 setTimeout(function() {
@@ -245,55 +246,64 @@ suite('Server Operation', function() {
               });
             }, 15);
             conn.on('close', function() {
-              assert.ok(!wrote, 'socket should have closed');
-              assert.ok(Date.now() - start > 30,
-                'no increase in timeout during write');
-              conn.destroy();
+              try {
+                assert.ok(!wrote, 'socket should have closed');
+                assert.ok(Date.now() - start > 30,
+                  'no increase in timeout during write');
+                conn.destroy();
+              } catch(err) {
+                done(err);
+                return;
+              }
               done();
             });
           });
         });
       });
     });
-
+    
     test('Hard timeouts', function(done) {
       this.slow(200);
       createServer({
         port: null,
         timeouts: {
-          soft: 30,
-          hard: 55
+          soft: 40,
+          hard: 85
         }
       }, function() {
         var count = 0, start = Date.now();
         server.start(function() {
           var conn = net.connect({port: server.live.port}, function() {
+            conn.on('error', function(err) {});
             conn.write('GET /test HTTP/1.1\r\n', function() {
               function nextHeader() {
                 if (!conn.destroyed && count < 10) {
                   conn.write('Header'+count+': hello world\r\n', function() {
                     count++;
-                    setTimeout(nextHeader, 15);
+                    setTimeout(nextHeader, 10);
                   });
-                } else {
-                  conn.destroy();
                 }
               }
-              setTimeout(nextHeader, 15);
+              setTimeout(nextHeader, 10);
             });
             conn.on('close', function() {
-              assert.ok(conn.destroyed, 'socket should have closed');
-              assert.ok((Date.now() - start) > 50,
-                'no increase in timeout during write: '+(Date.now() - start));
-              assert.ok(count > 2, 'should have written several headers');
-              conn.destroy();
+              try {
+                assert.ok(conn.destroyed, 'socket should have closed');
+                assert.ok((Date.now() - start) > 80,
+                  'no increase in timeout during write: '+(Date.now() - start));
+                assert.ok(count > 2, 'should have written several headers');
+                conn.destroy();
+              } catch(err) {
+                done(err);
+                return;
+              }
               done();
             });
           });
         });
       });
     });
-  })
+  });
 
   test('Register a handler', function(done) {
     var pth = '/index.html'

@@ -15,9 +15,7 @@ gulp.task('test-collections', function() {
     });
 });
 
-gulp.task('default', ['test-collections'], function() {
-  process.exit(0);
-});
+gulp.task('default', ['test-collections']);
 
 function run() {
   if (['harmony', 'standard'].indexOf(process.argv[2]) !== -1) {
